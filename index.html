@@ -4,44 +4,512 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AutoGarde — Informativa sulla privacy</title>
-<meta name="description" content="Informativa sulla privacy dell'app AutoGarde per Android.">
+<meta name="description" content="Informativa sulla privacy di AutoGarde: dati sul dispositivo, documenti cifrati, OCR on-device, notifiche locali e nessun tracciamento.">
+<meta name="theme-color" content="#050b18">
+<meta name="color-scheme" content="dark light">
 <style>
- body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:760px;margin:0 auto;padding:32px 20px 64px;line-height:1.6;color:#123137;background:#f4f8f6}
- h1{font-size:2rem;margin-bottom:.2em} h2{margin-top:2em;font-size:1.15rem}
- .muted{color:#516a6b;font-size:.9rem} code{background:#e3eee9;padding:1px 5px;border-radius:5px}
+  :root{
+    --bg:#050b18;
+    --bg-soft:#081226;
+    --ink:#eaf3ff;
+    --muted:#9db0cc;
+    --faint:#6f83a1;
+    --line:rgba(255,255,255,.10);
+    --line-strong:rgba(255,255,255,.18);
+    --glass:rgba(255,255,255,.055);
+    --glass-soft:rgba(255,255,255,.035);
+    --cyan:#3ee0ff;
+    --blue:#4f8cff;
+    --violet:#a78bfa;
+    --teal:#2dd4bf;
+    --rose:#fb7185;
+    --amber:#fbbf24;
+    --radius:22px;
+    --max:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:16.5px;
+    line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:-20vh -10vw;
+    z-index:-2;
+    background:
+      radial-gradient(46vw 46vw at 12% 4%, rgba(62,224,255,.16), transparent 62%),
+      radial-gradient(44vw 44vw at 92% 12%, rgba(139,92,246,.18), transparent 64%),
+      radial-gradient(52vw 52vw at 50% 110%, rgba(45,212,191,.12), transparent 66%),
+      linear-gradient(180deg,#050b18 0%,#071127 52%,#050b18 100%);
+  }
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    opacity:.35;
+    background-image:
+      linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+    background-size:72px 72px;
+    mask-image:radial-gradient(80% 60% at 50% 0%,#000 0%,transparent 78%);
+    -webkit-mask-image:radial-gradient(80% 60% at 50% 0%,#000 0%,transparent 78%);
+  }
+  a{color:var(--cyan);text-decoration:none}
+  a:hover{text-decoration:underline;text-underline-offset:3px}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:8px}
+  .wrap{width:min(var(--max),calc(100% - 40px));margin:0 auto}
+  .glass{
+    background:linear-gradient(150deg,rgba(255,255,255,.075),rgba(255,255,255,.028));
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:0 26px 70px -38px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.10);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+  }
+  /* ---------- header ---------- */
+  .site-head{position:sticky;top:0;z-index:40;padding:12px 0;background:rgba(5,11,24,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.07)}
+  .site-head .wrap{display:flex;align-items:center;gap:16px;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none}
+  .brand:hover{text-decoration:none}
+  .mark{width:40px;height:40px;border-radius:12px;display:block;filter:drop-shadow(0 8px 18px rgba(62,224,255,.28))}
+  .brand b{font-size:1.06rem;letter-spacing:-.01em;font-weight:750}
+  .brand small{display:block;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);font-weight:600;line-height:1.4}
+  .head-meta{display:flex;align-items:center;gap:10px;font-size:.78rem;color:var(--muted)}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:var(--glass-soft);white-space:nowrap;font-size:.76rem;letter-spacing:.02em}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(45,212,191,.14)}
+  /* ---------- hero ---------- */
+  .hero{padding:78px 0 26px}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:700;letter-spacing:.20em;text-transform:uppercase;color:var(--cyan);margin:0 0 20px}
+  .eyebrow .rule{display:inline-block;width:34px;height:1px;background:linear-gradient(90deg,var(--cyan),transparent)}
+  h1{font-size:clamp(2.5rem,6.2vw,4.5rem);line-height:1.02;letter-spacing:-.045em;font-weight:800;margin:0 0 22px;max-width:16ch}
+  h1 .shine{background:linear-gradient(100deg,#fff 0%,#b7e9ff 36%,#8fb4ff 62%,#c4b5fd 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lede{font-size:clamp(1.05rem,2vw,1.24rem);color:#c1d2ea;max-width:62ch;margin:0 0 30px;line-height:1.66}
+  .badges{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+  .badge{display:inline-flex;align-items:center;gap:9px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:.82rem;color:#d5e3f7}
+  .badge svg{width:15px;height:15px;flex:none}
+  .meta-line{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:.82rem;color:var(--faint)}
+  .meta-line b{color:var(--muted);font-weight:600}
+  /* ---------- summary ---------- */
+  .summary{padding:34px 0 12px}
+  .summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .sum-card{padding:22px 20px 20px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.065),rgba(255,255,255,.022));position:relative;overflow:hidden}
+  .sum-card::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,var(--cyan),rgba(79,140,255,.4),transparent);opacity:.9}
+  .sum-card.v::before{background:linear-gradient(90deg,var(--violet),rgba(167,139,250,.35),transparent)}
+  .sum-card.t::before{background:linear-gradient(90deg,var(--teal),rgba(45,212,191,.35),transparent)}
+  .sum-card.a::before{background:linear-gradient(90deg,var(--amber),rgba(251,191,36,.35),transparent)}
+  .sum-card h3{margin:0 0 6px;font-size:.95rem;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
+  .sum-card p{margin:0;font-size:.84rem;line-height:1.55;color:var(--muted)}
+  .sum-ico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;border:1px solid var(--line);background:rgba(62,224,255,.10);color:var(--cyan);flex:none}
+  .sum-ico svg{width:16px;height:16px}
+  /* ---------- toc ---------- */
+  .toc{margin:40px 0 8px;padding:24px 24px 20px}
+  .toc h2{margin:0 0 14px;font-size:.72rem;letter-spacing:.19em;text-transform:uppercase;color:var(--faint);font-weight:700}
+  .toc-grid{display:flex;flex-wrap:wrap;gap:8px}
+  .toc a{display:inline-block;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.025);color:#cfdff5;font-size:.8rem}
+  .toc a:hover{text-decoration:none;border-color:rgba(62,224,255,.45);color:#fff;background:rgba(62,224,255,.08)}
+  /* ---------- article ---------- */
+  main{padding:26px 0 20px}
+  .section{margin:20px 0;padding:clamp(24px,4vw,40px);scroll-margin-top:92px}
+  .section-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:16px}
+  .num{flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:.8rem;font-weight:800;color:#061426;background:linear-gradient(135deg,var(--cyan),var(--blue));box-shadow:0 10px 24px -10px rgba(62,224,255,.7)}
+  h2{font-size:clamp(1.28rem,2.5vw,1.62rem);line-height:1.25;letter-spacing:-.025em;margin:2px 0 0;font-weight:750}
+  h3{font-size:1rem;letter-spacing:-.01em;margin:26px 0 8px;color:#e9f4ff}
+  p{margin:0 0 14px;color:#c6d6ec}
+  .section p:last-child,.section ul:last-child,.section table:last-child{margin-bottom:0}
+  ul,ol{margin:0 0 16px;padding-left:22px;color:#c6d6ec}
+  li{margin:0 0 8px}
+  li::marker{color:var(--cyan)}
+  strong{color:#f2f8ff;font-weight:650}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em;background:rgba(255,255,255,.075);border:1px solid var(--line);padding:1px 6px;border-radius:6px;color:#d8ecff;overflow-wrap:anywhere}
+  .callout{display:flex;gap:14px;padding:18px 20px;border-radius:16px;border:1px solid rgba(62,224,255,.22);background:linear-gradient(140deg,rgba(62,224,255,.09),rgba(79,140,255,.04));margin:18px 0}
+  .callout .ico{flex:none;width:26px;height:26px;color:var(--cyan)}
+  .callout p{margin:0;font-size:.92rem;color:#d5e7fb}
+  .callout.teal{border-color:rgba(45,212,191,.24);background:linear-gradient(140deg,rgba(45,212,191,.09),rgba(45,212,191,.02))}
+  .callout.teal .ico{color:var(--teal)}
+  .callout.amber{border-color:rgba(251,191,36,.24);background:linear-gradient(140deg,rgba(251,191,36,.085),rgba(251,191,36,.02))}
+  .callout.amber .ico{color:var(--amber)}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+  .mini{padding:18px;border-radius:15px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+  .mini h3{margin:0 0 8px;font-size:.92rem;display:flex;gap:8px;align-items:center}
+  .mini ul{margin:0;padding-left:18px;font-size:.88rem}
+  .mini li{margin-bottom:5px}
+  .tag{display:inline-block;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:3px 8px;border-radius:6px;background:rgba(45,212,191,.13);border:1px solid rgba(45,212,191,.24);color:#7ff0e2;vertical-align:2px}
+  .tag.no{background:rgba(251,113,133,.10);border-color:rgba(251,113,133,.24);color:#ffb3bd}
+  /* ---------- table ---------- */
+  .table-wrap{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.02)}
+  table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:560px}
+  th,td{text-align:left;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.07);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  th{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700;background:rgba(255,255,255,.03)}
+  td:first-child{color:#f1f7ff;font-weight:600;white-space:nowrap}
+  td{color:var(--muted)}
+  .ok{color:#8bf0dc}
+  /* ---------- contact ---------- */
+  .contact{padding:clamp(26px,4vw,42px);display:grid;grid-template-columns:1.4fr .9fr;gap:28px;align-items:center;margin:22px 0 10px}
+  .contact h2{margin:0 0 10px}
+  .contact p{margin:0;max-width:48ch}
+  .contact-card{padding:20px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+  .contact-card small{display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:5px;font-weight:700}
+  .contact-card .who{font-weight:700;color:#fff;margin-bottom:14px}
+  .contact-card a{font-size:.95rem;overflow-wrap:anywhere}
+  footer{padding:40px 0 54px;color:var(--faint);font-size:.78rem}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.07);padding-top:22px}
+  footer nav{display:flex;gap:16px;flex-wrap:wrap}
+  footer a{color:var(--muted)}
+  .to-top{font-size:.78rem}
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .summary-grid{grid-template-columns:1fr 1fr}
+    .contact{grid-template-columns:1fr}
+  }
+  @media (max-width:640px){
+    body{font-size:15.5px}
+    .wrap{width:calc(100% - 28px)}
+    .hero{padding:48px 0 18px}
+    .head-meta .pill:first-child{display:none}
+    .summary-grid{grid-template-columns:1fr}
+    .grid-2{grid-template-columns:1fr}
+    .section{padding:22px 18px;border-radius:18px}
+    .section-head{gap:12px}
+    .num{width:32px;height:32px;border-radius:9px;font-size:.72rem}
+    .toc{padding:18px}
+    footer .wrap{flex-direction:column;align-items:flex-start}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  @media print{
+    body{background:#fff;color:#111;font-size:11pt}
+    body::before,body::after,.site-head,.toc,.badges,.to-top{display:none}
+    .glass{background:#fff;border:1px solid #ccc;box-shadow:none;backdrop-filter:none}
+    .section{page-break-inside:avoid;margin:12px 0}
+    h1,h2,h3,strong,td:first-child{color:#111}
+    p,li,td{color:#222}
+    a{color:#0645ad}
+    .hero{padding-top:0}
+  }
 </style>
 </head>
 <body>
-<h1>Informativa sulla privacy — AutoGarde</h1>
-<p class="muted">Ultimo aggiornamento: 12 novembre 2026</p>
 
-<p>AutoGarde è un'app per gestire il proprio garage e la manutenzione delle auto. È progettata per funzionare senza account e senza inviare i dati del garage a server del titolare.</p>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="AutoGarde — torna all'inizio">
+      <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
+        <defs>
+          <linearGradient id="ag" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#3ee0ff"/><stop offset=".55" stop-color="#3b82f6"/><stop offset="1" stop-color="#6d5efc"/>
+          </linearGradient>
+        </defs>
+        <rect width="48" height="48" rx="13" fill="url(#ag)"/>
+        <path d="M24 8.6 10.4 18.9v20.5h9.5V28.1h8.2v11.3h9.5V18.9Z" fill="#fff" fill-opacity=".96"/>
+        <path d="M18.7 22.9h10.6l2.1 3.5c1.1.4 1.6 1.2 1.6 2.4v3.4h-2.6v-2.2h-12.8v2.2h-2.6v-3.4c0-1.2.5-2 1.6-2.4Zm1.6 1.7-.9 1.8h9.2l-.9-1.8Z" fill="url(#ag)"/>
+      </svg>
+      <span><b>AutoGarde</b><small>Privacy center</small></span>
+    </a>
+    <div class="head-meta">
+      <span class="pill"><span class="dot"></span> Nessun server</span>
+      <span class="pill">v1.7.4 · 24 nov 2026</span>
+    </div>
+  </div>
+</header>
 
-<h2>Dati salvati sul dispositivo</h2>
-<p>L'app salva nella memoria privata del dispositivo: auto, targa, chilometraggio, interventi, lavorazioni, ricambi, costi, regole di manutenzione, scadenze, foto dell'auto e preferenze del tema. Questi dati non vengono trasmessi al titolare e non sono accessibili ad altre app.</p>
+<main id="top">
+  <section class="hero wrap">
+    <p class="eyebrow"><span class="rule"></span> Informativa sulla privacy</p>
+    <h1><span class="shine">I tuoi dati restano<br>nel tuo garage.</span></h1>
+    <p class="lede">AutoGarde è un'app <strong>offline-first</strong>: auto, interventi, spese, scadenze, foto e documenti vivono nella memoria privata del tuo telefono. Non esistono account, server del titolare, profilazione o tracciamento. Questa pagina spiega, punto per punto, cosa succede ai tuoi dati e quali sono i tuoi diritti.</p>
+    <div class="badges">
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg> Nessun account</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#3ee0ff" stroke-width="2" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> Documenti cifrati</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.5 3 2.5 13 0 16"/></svg> OCR sul dispositivo</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" aria-hidden="true"><path d="M4 18V9m5 9V6m5 12v-7m5 7V4"/></svg> Zero analytics</span>
+    </div>
+    <p class="meta-line"><span><b>Ultimo aggiornamento</b> 24 novembre 2026</span><span><b>Si applica a</b> AutoGarde 1.7.4 (versionCode 33)</span><span><b>Lingua</b> italiano</span></p>
+  </section>
 
-<h2>Ricerca automatica della foto</h2>
-<p>Se premi "Cerca foto automatica", l'app invia a <strong>Wikimedia Commons</strong> (<code>commons.wikimedia.org</code>) una richiesta con marca, modello, generazione e anno dell'auto per cercare una fotografia con licenza riutilizzabile. La richiesta include l'indirizzo IP del dispositivo come qualsiasi richiesta web, ma non contiene identificativi dell'utente, della targa o del garage. L'immagine scelta viene scaricata e conservata nella memoria privata dell'app insieme al nome dell'autore e alla licenza, mostrati nella scheda dell'auto.</p>
+  <section class="summary wrap" aria-label="In sintesi">
+    <div class="summary-grid">
+      <div class="sum-card">
+        <h3><span class="sum-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span> Dati locali</h3>
+        <p>Garage, spese, scadenze, foto e documenti sono salvati solo nella memoria privata dell'app.</p>
+      </div>
+      <div class="sum-card v">
+        <h3><span class="sum-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M4 7l2-3h12l2 3"/><circle cx="12" cy="13" r="3"/></svg></span> Nessun tracciamento</h3>
+        <p>Niente analytics, pubblicità, crash reporting remoto, identificatori pubblicitari o acquisti in-app.</p>
+      </div>
+      <div class="sum-card t">
+        <h3><span class="sum-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span> Cifratura</h3>
+        <p>Patente e libretto sono immagini AES-256/GCM con chiave nel Keystore, escluse dai backup.</p>
+      </div>
+      <div class="sum-card a">
+        <h3><span class="sum-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v10"/><path d="M9 10l3 3 3-3"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></span> Cancellazione</h3>
+        <p>Eliminando un'auto rimuovi anche i suoi dati; disinstallando l'app cancelli tutto dal telefono.</p>
+      </div>
+    </div>
+  </section>
 
-<h2>Galleria</h2>
-<p>Se scegli una foto dalla galleria, l'app copia solo l'immagine selezionata nella propria memoria privata. Non richiede permessi di accesso all'archiviazione e non legge altre immagini.</p>
+  <nav class="toc glass wrap" aria-label="Indice dell'informativa">
+    <h2>Indice</h2>
+    <div class="toc-grid">
+      <a href="#titolare">Titolare</a>
+      <a href="#modello">Come funziona</a>
+      <a href="#dati">Dati sul dispositivo</a>
+      <a href="#documenti">Documenti e fotocamera</a>
+      <a href="#ocr">Scontrini e OCR</a>
+      <a href="#wikimedia">Foto da Wikimedia</a>
+      <a href="#notifiche">Notifiche</a>
+      <a href="#backup">Backup</a>
+      <a href="#permessi">Permessi</a>
+      <a href="#noi">Cosa non facciamo</a>
+      <a href="#conservazione">Conservazione</a>
+      <a href="#diritti">I tuoi diritti</a>
+      <a href="#minori">Minori</a>
+      <a href="#modifiche">Modifiche</a>
+      <a href="#contatti">Contatti</a>
+    </div>
+  </nav>
 
-<h2>Backup</h2>
-<p>Il backup in formato JSON viene creato solo quando premi "Esporta backup"; il file viene scritto nella cartella che scegli tramite il selettore di sistema, quindi fuori dalla memoria privata dell'app. Contiene i dati del garage e le foto incluse come testo Base64. Il file non viene inviato a server del titolare: resta dove decidi di salvarlo e la sua custodia è responsabilità dell'utente.</p>
+  <div class="wrap">
+    <section class="section glass" id="titolare">
+      <div class="section-head"><span class="num">01</span><h2>Titolare del trattamento e ambito</h2></div>
+      <p>Il titolare del trattamento è <strong>Adriano Seferi</strong>, contattabile all'indirizzo <a href="mailto:inifinitygrade@gmail.com">inifinitygrade@gmail.com</a>.</p>
+      <p>Questa informativa riguarda l'app Android <strong>AutoGarde</strong> (package <code>it.mygarage.app</code>) e il sito che ospita questa pagina. Non riguarda i servizi di terze parti che scegli di usare (per esempio Wikimedia Commons o Google Play), che applicano le proprie informative.</p>
+      <div class="callout">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M12 8v5M12 16h.01"/></svg>
+        <p><strong>In una frase:</strong> AutoGarde non invia i dati del tuo garage a nessun server del titolare, perché un server del titolare non esiste. L'unica chiamata di rete dell'app è la ricerca facoltativa della foto dell'auto su Wikimedia Commons, descritta più sotto.</p>
+      </div>
+    </section>
 
-<h2>Permessi</h2>
-<p>L'app usa solo il permesso Internet, necessario per la ricerca facoltativa della foto. Non usa posizione, contatti, microfono, fotocamera, notifiche o identificatori pubblicitari.</p>
+    <section class="section glass" id="modello">
+      <div class="section-head"><span class="num">02</span><h2>Come funziona AutoGarde</h2></div>
+      <p>AutoGarde è progettata come un archivio personale <strong>sul dispositivo</strong>. Non c'è registrazione, non c'è login, non c'è sincronizzazione cloud e non c'è un backend che riceve i tuoi dati. Le funzioni che elaborano contenuti — lettura di scontrini e fatture, ritaglio e correzione dei documenti, calcolo delle scadenze, notifiche, widget — lavorano interamente sul telefono.</p>
+      <p>Questo modello ha una conseguenza importante: <strong>il titolare non può vedere, leggere, recuperare o modificare i tuoi dati</strong>. Se perdi il telefono o disinstalli l'app senza un backup, i dati non sono recuperabili da noi. La custodia del dispositivo e dei backup che esporti è in capo a te.</p>
+      <div class="grid-2">
+        <div class="mini">
+          <h3><span class="tag">Sempre offline</span></h3>
+          <ul>
+            <li>Creazione e modifica di auto, interventi, ricambi e regole</li>
+            <li>Scadenze, promemoria e widget</li>
+            <li>Lettura OCR di scontrini e fatture</li>
+            <li>Ritaglio e cifratura di patente e libretto</li>
+            <li>Report PDF e schede di manutenzione</li>
+          </ul>
+        </div>
+        <div class="mini">
+          <h3><span class="tag no">Solo su tua richiesta</span></h3>
+          <ul>
+            <li>Ricerca della foto dell'auto su Wikimedia Commons</li>
+            <li>Scelta di una foto o di un documento dal selettore di sistema</li>
+            <li>Esportazione di un backup JSON o ZIP</li>
+            <li>Attivazione delle notifiche di sistema</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-<h2>Assenza di raccolta e condivisione</h2>
-<p>Non ci sono account, pubblicità, analytics, crash reporting remoto, acquisti in-app o servizi di tracciamento. Il titolare non raccoglie né condivide dati personali.</p>
+    <section class="section glass" id="dati">
+      <div class="section-head"><span class="num">03</span><h2>Dati salvati sul dispositivo</h2></div>
+      <p>Nella memoria privata dell'app vengono conservati i dati che inserisci o generi usando AutoGarde:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Categoria</th><th>Contenuto</th><th>Dove</th></tr></thead>
+          <tbody>
+            <tr><td>Auto</td><td>Marca, modello, generazione, motore, anno, targa, chilometraggio, dati tecnici del catalogo, date di bollo, assicurazione e revisione</td><td>Database privato dell'app</td></tr>
+            <tr><td>Manutenzione</td><td>Interventi, lavorazioni, ricambi con codici e prezzi, officina, note, costi, regole personali e checklist</td><td>Database privato dell'app</td></tr>
+            <tr><td>Foto</td><td>Foto dell'auto scelta dalla galleria o cercata su Wikimedia, con autore, licenza e fonte</td><td>Cartella privata dell'app</td></tr>
+            <tr><td>Documenti</td><td>Patente e libretto acquisiti da fotocamera, galleria o PDF</td><td>File cifrati AES-256/GCM</td></tr>
+            <tr><td>Allegati</td><td>Scontrini, fatture e foto allegati agli interventi (fino a 25 MB per file)</td><td>Cartella privata dell'app</td></tr>
+            <tr><td>Preferenze</td><td>Tema, lingua, colonne della griglia, posizione della linguetta, protezione biometrica, promemoria</td><td>DataStore privato dell'app</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:16px">Questi dati <strong>non vengono trasmessi al titolare</strong> e non sono leggibili da altre app: Android li colloca nella sandbox privata di AutoGarde. Non includono contatti, posizione, microfono, calendario o identificatori pubblicitari, perché l'app non vi accede.</p>
+    </section>
 
-<h2>Conservazione e cancellazione</h2>
-<p>I dati restano sul dispositivo finché l'app è installata. Puoi eliminare un'auto dall'app oppure disinstallare l'app per cancellare tutto. Non esistono backup cloud gestiti dall'app.</p>
+    <section class="section glass" id="documenti">
+      <div class="section-head"><span class="num">04</span><h2>Fotocamera, patente e libretto</h2></div>
+      <p>La fotocamera viene aperta <strong>solo quando scegli di acquisire</strong> la patente, il libretto o un documento da leggere. I fotogrammi vengono elaborati in memoria; le immagini dei documenti non vengono mai scritte in chiaro su disco.</p>
+      <ul>
+        <li><strong>Cifratura.</strong> Le immagini di patente e libretto sono salvate come PNG cifrati con <strong>AES-256/GCM</strong>; la chiave risiede nell'Android Keystore e non è esportabile. Sono protette da una chiave separata per ciascun tipo di documento.</li>
+        <li><strong>Protezione facoltativa.</strong> Puoi attivare lo sblocco con PIN o biometria del dispositivo prima di mostrare le card. L'impronta o il volto sono verificati dal sistema Android: AutoGarde non riceve né conserva dati biometrici.</li>
+        <li><strong>Schermate protette.</strong> Con card, visore o acquisizione aperti l'app attiva <code>FLAG_SECURE</code>: screenshot e anteprima nei recenti sono bloccati.</li>
+        <li><strong>Nessuna rete.</strong> Il codice di acquisizione e cifratura non effettua chiamate di rete e non scrive dati nei log.</li>
+        <li><strong>Esclusi dai backup.</strong> Patente e libretto non entrano nei backup JSON/ZIP: dopo una reinstallazione vanno acquisiti di nuovo.</li>
+        <li><strong>Cancellazione.</strong> Eliminando un'auto vengono eliminati anche i suoi documenti; l'eliminazione dei file cifrati è accompagnata da una sovrascrittura best-effort, mentre il confine di sicurezza reale resta la chiave nel Keystore.</li>
+      </ul>
+      <div class="callout teal">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15l3-4 2.5 3L15 11l2 4"/></svg>
+        <p>Patente e libretto sono <strong>copie personali</strong> e non sostituiscono i documenti ufficiali. L'app non verifica l'autenticità del documento né lo condivide con terzi.</p>
+      </div>
+    </section>
 
-<h2>Minori</h2>
-<p>L'app non è destinata a bambini sotto i 13 anni e non raccoglie consapevolmente dati di minori.</p>
+    <section class="section glass" id="ocr">
+      <div class="section-head"><span class="num">05</span><h2>Lettura di scontrini e fatture (OCR)</h2></div>
+      <p>Quando scegli «Da foto» o «Da PDF» nell'editor di un intervento, il documento viene letto <strong>sul telefono</strong> con ML Kit Text Recognition, il cui modello è incluso nell'app. Non serve una connessione e nessuna immagine, nessun testo e nessun dato viene inviato a server — nostri o di terzi.</p>
+      <ul>
+        <li>Il file scelto viene copiato nella cache privata dell'app, elaborato e <strong>cancellato subito dopo</strong> la lettura.</li>
+        <li>Le pagine di un PDF vengono rasterizzate localmente (fino a 5 pagine); la copia temporanea viene sovrascritta e rimossa. Il PDF originale resta dov'è, nel provider da cui lo hai scelto.</li>
+        <li>Se lasci attiva l'opzione «Allega il documento all'intervento», una copia resta nella cartella privata dell'app come allegato, insieme ai dati dell'intervento. Puoi eliminarla in qualsiasi momento.</li>
+        <li>Il testo letto viene usato solo per compilare la schermata di revisione, dove puoi correggere ogni campo prima di salvare.</li>
+      </ul>
+    </section>
 
-<h2>Contatti</h2>
-<p>Titolare: Adriano Seferi<br>Email: inifinitygrade@gmail.com</p>
+    <section class="section glass" id="wikimedia">
+      <div class="section-head"><span class="num">06</span><h2>Foto dell'auto da Wikimedia Commons</h2></div>
+      <p>La ricerca automatica della foto è <strong>facoltativa</strong>. Se premi «Cerca foto automatica», l'app invia a <strong>Wikimedia Commons</strong> (<code>commons.wikimedia.org</code>) una richiesta con marca, modello, generazione e anno dell'auto per cercare un'immagine con licenza riutilizzabile.</p>
+      <ul>
+        <li>La richiesta contiene i dati dell'auto e l'indirizzo IP tecnico della connessione, come qualsiasi richiesta web. <strong>Non</strong> contiene il tuo nome, la targa, l'identificativo del garage o altri identificativi dell'utente.</li>
+        <li>L'immagine scelta viene scaricata da <code>upload.wikimedia.org</code> e salvata nella memoria privata dell'app insieme al nome dell'autore e alla licenza, mostrati nella scheda dell'auto.</li>
+        <li>Wikimedia Commons è un progetto della Wikimedia Foundation e applica la propria <a href="https://foundation.wikimedia.org/wiki/Policy:Privacy_policy" rel="noopener">informativa sulla privacy</a>. Se non usi la ricerca automatica, l'app non contatta Wikimedia.</li>
+      </ul>
+      <p>Se invece scegli una foto dalla galleria, l'app copia <strong>solo l'immagine selezionata</strong> nella propria memoria privata tramite il selettore di sistema. Non richiede il permesso di accesso a tutte le foto e non legge il resto della galleria.</p>
+    </section>
+
+    <section class="section glass" id="notifiche">
+      <div class="section-head"><span class="num">07</span><h2>Notifiche, promemoria e widget</h2></div>
+      <p>I promemoria delle scadenze sono <strong>notifiche locali</strong>, generate dal telefono con WorkManager. Non esiste un servizio push e nessun server invia notifiche. L'app controlla le scadenze in background circa alle ore 9 e mostra una notifica quando una regola o una scadenza di legge è scaduta o sta per scadere.</p>
+      <ul>
+        <li>Su Android 13 e successivi la notifica viene pubblicata solo se concedi il permesso <code>POST_NOTIFICATIONS</code>; puoi revocarlo dalle impostazioni di sistema.</li>
+        <li>Il promemoria può essere disattivato in qualsiasi momento dalle Impostazioni dell'app.</li>
+        <li>Il widget «Scadenze AutoGarde» e il riquadro rapido della patente leggono esclusivamente i dati locali e non effettuano chiamate di rete.</li>
+        <li>Per riprogrammare i promemoria dopo un riavvio, Android concede all'app permessi tecnici (riavvio, wake lock, rete) gestiti dalla libreria WorkManager. Non danno accesso a dati personali.</li>
+      </ul>
+    </section>
+
+    <section class="section glass" id="backup">
+      <div class="section-head"><span class="num">08</span><h2>Backup ed esportazioni</h2></div>
+      <p>AutoGarde non crea backup automatici e non ha backup cloud. Il backup viene creato <strong>solo quando premi «Esporta backup»</strong> e viene scritto nella cartella che scegli tramite il selettore di sistema, fuori dalla memoria privata dell'app.</p>
+      <ul>
+        <li>Il backup <strong>JSON</strong> contiene auto, interventi, lavorazioni, ricambi, chilometraggi, regole, scadenze, tema e foto (incluse come Base64).</li>
+        <li>Il backup <strong>ZIP</strong> contiene gli stessi dati e gli allegati degli interventi.</li>
+        <li>Patente e libretto sono <strong>esclusi</strong> da entrambi i formati.</li>
+        <li>Il file non viene inviato al titolare: resta dove decidi di salvarlo. La sua custodia, la scelta della destinazione e l'eventuale condivisione sono responsabilità dell'utente. Un backup JSON/ZIP non è cifrato dall'app: conservalo in un luogo sicuro.</li>
+      </ul>
+      <div class="callout amber">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l9 16H3z"/><path d="M12 9v4M12 17h.01"/></svg>
+        <p>Il backup contiene dati del garage e foto: trattalo come un documento personale. Se lo condividi con un servizio cloud, quel servizio applica la propria informativa.</p>
+      </div>
+    </section>
+
+    <section class="section glass" id="permessi">
+      <div class="section-head"><span class="num">09</span><h2>Permessi richiesti</h2></div>
+      <p>AutoGarde chiede solo i permessi necessari alle funzioni che attivi. Puoi revocarli in qualsiasi momento dalle impostazioni Android; le funzioni collegate smetteranno di funzionare, il resto dell'app continuerà a funzionare offline.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Permesso</th><th>Perché</th><th>Quando</th></tr></thead>
+          <tbody>
+            <tr><td>Internet</td><td>Ricerca facoltativa della foto su Wikimedia Commons</td><td>Solo se premi «Cerca foto automatica»</td></tr>
+            <tr><td>Fotocamera</td><td>Acquisizione di patente, libretto, scontrini e fatture</td><td>Solo quando apri l'acquisizione</td></tr>
+            <tr><td>Notifiche</td><td>Promemoria locali delle scadenze</td><td>Se attivi i promemoria (Android 13+)</td></tr>
+            <tr><td>Biometria</td><td>Sblocco facoltativo delle card patente e libretto</td><td>Solo se attivi la protezione</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:16px">L'app <strong>non</strong> chiede accesso a posizione, contatti, microfono, calendario, SMS, telefono, archiviazione o identificatori pubblicitari. Le foto vengono scelte con il selettore di sistema, che non richiede il permesso di accesso alla galleria.</p>
+    </section>
+
+    <section class="section glass" id="noi">
+      <div class="section-head"><span class="num">10</span><h2>Cosa non facciamo</h2></div>
+      <div class="grid-2">
+        <div class="mini">
+          <h3><span class="tag no">Nessuna raccolta</span></h3>
+          <ul>
+            <li>Nessun account o profilo utente</li>
+            <li>Nessun analytics o telemetria</li>
+            <li>Nessun crash reporting remoto</li>
+            <li>Nessun identificatore pubblicitario</li>
+            <li>Nessuna profilazione o decisione automatizzata</li>
+          </ul>
+        </div>
+        <div class="mini">
+          <h3><span class="tag no">Nessuna condivisione</span></h3>
+          <ul>
+            <li>Nessuna vendita o cessione di dati</li>
+            <li>Nessuna pubblicità o rete pubblicitaria</li>
+            <li>Nessun acquisto in-app o abbonamento</li>
+            <li>Nessun tracciamento tra app o siti</li>
+            <li>Nessun server del titolare a cui inviare dati</li>
+          </ul>
+        </div>
+      </div>
+      <p>Di conseguenza, il titolare <strong>non raccoglie né condivide dati personali</strong> ai sensi del Regolamento (UE) 2016/679 («GDPR»). I dati che inserisci restano sotto il tuo controllo e nella disponibilità del tuo dispositivo.</p>
+    </section>
+
+    <section class="section glass" id="conservazione">
+      <div class="section-head"><span class="num">11</span><h2>Conservazione e cancellazione</h2></div>
+      <ul>
+        <li>I dati restano sul dispositivo <strong>finché l'app è installata</strong>, senza scadenze automatiche imposte dal titolare.</li>
+        <li>Puoi eliminare una singola auto dall'app: vengono rimossi anche interventi, ricambi, revisioni, regole, scadenze e documenti collegati.</li>
+        <li>Puoi eliminare patente e libretto dal pannello dedicato delle Impostazioni, e i singoli allegati dalla scheda dell'intervento.</li>
+        <li>Disinstallando AutoGarde cancelli tutti i dati dell'app dal telefono. I backup che hai esportato restano dove li hai salvati e vanno eliminati separatamente.</li>
+        <li>Non esistono backup cloud gestiti dall'app: <code>allowBackup</code> è disattivato.</li>
+      </ul>
+    </section>
+
+    <section class="section glass" id="sicurezza">
+      <div class="section-head"><span class="num">12</span><h2>Sicurezza</h2></div>
+      <p>AutoGarde applica misure tecniche proporzionate a un archivio personale locale: sandbox Android, cifratura AES-256/GCM con chiave nel Keystore per i documenti, <code>FLAG_SECURE</code> sulle schermate sensibili, nessuna immagine in chiaro su disco, nessun dato nei log e nessuna chiamata di rete nel codice dei documenti. Nessun sistema è immune da rischi: la sicurezza dei dati dipende anche dalla protezione del dispositivo (blocco schermo, aggiornamenti di sistema) e dalla custodia dei backup esportati.</p>
+    </section>
+
+    <section class="section glass" id="diritti">
+      <div class="section-head"><span class="num">13</span><h2>I tuoi diritti</h2></div>
+      <p>Il GDPR ti riconosce, tra gli altri, il diritto di <strong>accesso</strong>, <strong>rettifica</strong>, <strong>cancellazione</strong>, <strong>limitazione</strong>, <strong>portabilità</strong> e <strong>opposizione</strong> al trattamento, oltre al diritto di proporre reclamo all'autorità di controllo.</p>
+      <p>Poiché i dati del garage non sono mai trasmessi al titolare, questi diritti si esercitano <strong>direttamente nell'app e sul dispositivo</strong>:</p>
+      <ul>
+        <li><strong>Accesso e portabilità:</strong> consulta i dati nelle schermate dell'app ed esporta un backup JSON o ZIP dalle Impostazioni.</li>
+        <li><strong>Rettifica:</strong> modifica auto, interventi, ricambi, regole e scadenze in qualsiasi momento.</li>
+        <li><strong>Cancellazione:</strong> elimina la singola auto, i documenti o l'intera app.</li>
+        <li><strong>Limitazione e opposizione:</strong> disattiva promemoria, ricerca foto, backup o singole funzioni; revoca i permessi da Android.</li>
+      </ul>
+      <p>Per domande sull'informativa o per esercitare i diritti puoi scrivere a <a href="mailto:inifinitygrade@gmail.com">inifinitygrade@gmail.com</a>. Risponderemo nei termini previsti dalla legge. Per il trattamento effettuato da Google Play o da Wikimedia Commons, il riferimento è alle rispettive informative. In Italia puoi rivolgerti al <a href="https://www.garanteprivacy.it" rel="noopener">Garante per la protezione dei dati personali</a>.</p>
+    </section>
+
+    <section class="section glass" id="minori">
+      <div class="section-head"><span class="num">14</span><h2>Minori</h2></div>
+      <p>AutoGarde non è destinata a bambini sotto i 13 anni e non raccoglie consapevolmente dati di minori. L'app non contiene pubblicità, acquisti in-app, chat o contenuti generati da altri utenti.</p>
+    </section>
+
+    <section class="section glass" id="modifiche">
+      <div class="section-head"><span class="num">15</span><h2>Modifiche all'informativa</h2></div>
+      <p>Questa informativa può essere aggiornata quando cambiano le funzioni dell'app o gli obblighi applicabili. La versione corrente riporta in alto la data di ultimo aggiornamento e la versione dell'app a cui si riferisce. Le modifiche sostanziali saranno evidenziate in questa pagina; l'uso continuato dell'app dopo l'aggiornamento costituisce presa d'atto della versione corrente.</p>
+      <p>Versione del documento: <strong>2.0</strong> — aggiornata il <strong>24 novembre 2026</strong> per AutoGarde <strong>1.7.4</strong>.</p>
+    </section>
+
+    <section class="section glass contact" id="contatti">
+      <div>
+        <div class="section-head" style="margin-bottom:10px"><span class="num">16</span><h2>Contatti</h2></div>
+        <p>Per qualsiasi domanda su questa informativa, sulla privacy di AutoGarde o per esercitare i tuoi diritti, scrivi al titolare. Se la richiesta riguarda un problema tecnico, indica la versione dell'app e il modello di telefono.</p>
+      </div>
+      <div class="contact-card">
+        <small>Titolare del trattamento</small>
+        <div class="who">Adriano Seferi</div>
+        <small>Email</small>
+        <a href="mailto:inifinitygrade@gmail.com">inifinitygrade@gmail.com</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 AutoGarde · Informativa privacy v2.0 · 24 novembre 2026</span>
+    <nav>
+      <a href="#top">Torna su</a>
+      <a href="#contatti">Contatti</a>
+      <a href="https://inifinitygrade-gif.github.io/autogarde-privacy/">Versione pubblica</a>
+    </nav>
+  </div>
+</footer>
+
 </body>
 </html>
