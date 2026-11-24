@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AutoGarde — Informativa sulla privacy</title>
-<meta name="description" content="Informativa sulla privacy di AutoGarde: dati sul dispositivo, documenti cifrati, OCR on-device, notifiche locali e nessun tracciamento.">
+<meta name="description" content="Informativa sulla privacy di AutoGarde: dati sul dispositivo, documenti cifrati, OCR on-device, notifiche locali, nessun tracciamento pubblicitario e metriche tecniche ML Kit dichiarate.">
 <meta name="theme-color" content="#050b18">
 <meta name="color-scheme" content="dark light">
 <style>
@@ -199,12 +199,12 @@
   <section class="hero wrap">
     <p class="eyebrow"><span class="rule"></span> Informativa sulla privacy</p>
     <h1><span class="shine">I tuoi dati restano<br>nel tuo garage.</span></h1>
-    <p class="lede">AutoGarde è un'app <strong>offline-first</strong>: auto, interventi, spese, scadenze, foto e documenti vivono nella memoria privata del tuo telefono. Non esistono account, server del titolare, profilazione o tracciamento. Questa pagina spiega, punto per punto, cosa succede ai tuoi dati e quali sono i tuoi diritti.</p>
+    <p class="lede">AutoGarde è un'app <strong>offline-first</strong>: auto, interventi, spese, scadenze, foto e documenti vivono nella memoria privata del tuo telefono. Non esistono account, server del titolare, profilazione o tracciamento pubblicitario. Questa pagina spiega, punto per punto, cosa succede ai tuoi dati e quali sono i tuoi diritti.</p>
     <div class="badges">
       <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg> Nessun account</span>
       <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#3ee0ff" stroke-width="2" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg> Documenti cifrati</span>
       <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.5 3 2.5 13 0 16"/></svg> OCR sul dispositivo</span>
-      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" aria-hidden="true"><path d="M4 18V9m5 9V6m5 12v-7m5 7V4"/></svg> Zero analytics</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" aria-hidden="true"><path d="M4 18V9m5 9V6m5 12v-7m5 7V4"/></svg> Nessun profilo</span>
     </div>
     <p class="meta-line"><span><b>Ultimo aggiornamento</b> 24 novembre 2026</span><span><b>Si applica a</b> AutoGarde 1.7.4 (versionCode 33)</span><span><b>Lingua</b> italiano</span></p>
   </section>
@@ -216,8 +216,8 @@
         <p>Garage, spese, scadenze, foto e documenti sono salvati solo nella memoria privata dell'app.</p>
       </div>
       <div class="sum-card v">
-        <h3><span class="sum-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M4 7l2-3h12l2 3"/><circle cx="12" cy="13" r="3"/></svg></span> Nessun tracciamento</h3>
-        <p>Niente analytics, pubblicità, crash reporting remoto, identificatori pubblicitari o acquisti in-app.</p>
+        <h3><span class="sum-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M4 7l2-3h12l2 3"/><circle cx="12" cy="13" r="3"/></svg></span> Nessuna pubblicità</h3>
+        <p>Nessun annuncio, acquisto in-app o identificatore pubblicitario. Le metriche tecniche di ML Kit sono descritte nella sezione OCR.</p>
       </div>
       <div class="sum-card t">
         <h3><span class="sum-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span> Cifratura</h3>
@@ -327,13 +327,17 @@
 
     <section class="section glass" id="ocr">
       <div class="section-head"><span class="num">05</span><h2>Lettura di scontrini e fatture (OCR)</h2></div>
-      <p>Quando scegli «Da foto» o «Da PDF» nell'editor di un intervento, il documento viene letto <strong>sul telefono</strong> con ML Kit Text Recognition, il cui modello è incluso nell'app. Non serve una connessione e nessuna immagine, nessun testo e nessun dato viene inviato a server — nostri o di terzi.</p>
+      <p>Quando scegli «Da foto» o «Da PDF» nell'editor di un intervento, il documento viene letto <strong>sul telefono</strong> con ML Kit Text Recognition, il cui modello è incluso nell'app. La lettura funziona anche offline: <strong>immagini e testo riconosciuto non vengono mai inviati</strong> al titolare né a terzi. Il componente ML Kit di Google può però trasmettere a Google le metriche tecniche descritte qui sotto.</p>
       <ul>
         <li>Il file scelto viene copiato nella cache privata dell'app, elaborato e <strong>cancellato subito dopo</strong> la lettura.</li>
         <li>Le pagine di un PDF vengono rasterizzate localmente (fino a 5 pagine); la copia temporanea viene sovrascritta e rimossa. Il PDF originale resta dov'è, nel provider da cui lo hai scelto.</li>
         <li>Se lasci attiva l'opzione «Allega il documento all'intervento», una copia resta nella cartella privata dell'app come allegato, insieme ai dati dell'intervento. Puoi eliminarla in qualsiasi momento.</li>
         <li>Il testo letto viene usato solo per compilare la schermata di revisione, dove puoi correggere ogni campo prima di salvare.</li>
       </ul>
+      <div class="callout teal">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M12 8v4M12 16h.01"/></svg>
+        <p><strong>Metriche tecniche di ML Kit.</strong> ML Kit è un SDK di Google incluso nell'app. Per diagnostica e analisi delle prestazioni può trasmettere a Google, con connessione cifrata, informazioni tecniche quali modello e versione del dispositivo, versione dell'app, un identificativo per installazione, tempi e configurazione della lettura, tipo di evento e codici di errore. <strong>Non</strong> contengono immagini, testo riconosciuto, targa, documenti o dati del garage. Il titolare non riceve né conserva queste metriche. Dettagli: <a href="https://developers.google.com/ml-kit/android-data-disclosure" rel="noopener">ML Kit data disclosure</a> e <a href="https://policies.google.com/privacy" rel="noopener">informativa privacy di Google</a>.</p>
+      </div>
     </section>
 
     <section class="section glass" id="wikimedia">
@@ -397,8 +401,8 @@
           <h3><span class="tag no">Nessuna raccolta</span></h3>
           <ul>
             <li>Nessun account o profilo utente</li>
-            <li>Nessun analytics o telemetria</li>
-            <li>Nessun crash reporting remoto</li>
+            <li>Nessun analytics proprietario o profilazione</li>
+            <li>Nessun crash reporting proprietario</li>
             <li>Nessun identificatore pubblicitario</li>
             <li>Nessuna profilazione o decisione automatizzata</li>
           </ul>
@@ -414,7 +418,7 @@
           </ul>
         </div>
       </div>
-      <p>Di conseguenza, il titolare <strong>non raccoglie né condivide dati personali</strong> ai sensi del Regolamento (UE) 2016/679 («GDPR»). I dati che inserisci restano sotto il tuo controllo e nella disponibilità del tuo dispositivo.</p>
+      <p>Il titolare <strong>non raccoglie né condivide dati personali</strong> ai sensi del Regolamento (UE) 2016/679 («GDPR») e non riceve le metriche tecniche di ML Kit. L'unico trattamento effettuato da un fornitore terzo è quello di Google per le metriche dell'SDK OCR, descritto nella sezione 05 e disciplinato dall'informativa di Google. I dati che inserisci restano sotto il tuo controllo e nella disponibilità del tuo dispositivo.</p>
     </section>
 
     <section class="section glass" id="conservazione">
@@ -454,7 +458,7 @@
     <section class="section glass" id="modifiche">
       <div class="section-head"><span class="num">15</span><h2>Modifiche all'informativa</h2></div>
       <p>Questa informativa può essere aggiornata quando cambiano le funzioni dell'app o gli obblighi applicabili. La versione corrente riporta in alto la data di ultimo aggiornamento e la versione dell'app a cui si riferisce. Le modifiche sostanziali saranno evidenziate in questa pagina; l'uso continuato dell'app dopo l'aggiornamento costituisce presa d'atto della versione corrente.</p>
-      <p>Versione del documento: <strong>2.0</strong> — aggiornata il <strong>24 novembre 2026</strong> per AutoGarde <strong>1.7.4</strong>.</p>
+      <p>Versione del documento: <strong>2.1</strong> — aggiornata il <strong>24 novembre 2026</strong> per AutoGarde <strong>1.7.4</strong>.</p>
     </section>
 
     <section class="section glass contact" id="contatti">
@@ -474,7 +478,7 @@
 
 <footer>
   <div class="wrap">
-    <span>© 2026 AutoGarde · Informativa privacy v2.0 · 24 novembre 2026</span>
+    <span>© 2026 AutoGarde · Informativa privacy v2.1 · 24 novembre 2026</span>
     <nav>
       <a href="#top">Torna su</a>
       <a href="#contatti">Contatti</a>
